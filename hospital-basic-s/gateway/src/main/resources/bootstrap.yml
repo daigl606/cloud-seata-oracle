@@ -1,0 +1,21 @@
+spring:
+ application:
+    name: gateway
+ cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        instanceId: ${spring.application.name}:${spring.cloud.client.ipaddress}:${server.port}
+        healthCheckPath: /actuator/health
+        healthCheckInterval: 15s     #默认是10s 可设置ps：15s or 1m
+        enabled: true
+        register: true
+        deregister: true
+        prefer-ip-address: true
+        health-check-critical-timeout: 30s
+      config:
+        prefix: hospital
+        enabled: true     #默认是true --
+        format: YAML    # 表示consul上面文件的格式 有四种 YAML PROPERTIES KEY-VALUE FILES
+        data-key: data    #表示consul上面的KEY值(或者说文件的名字) 默认是data
